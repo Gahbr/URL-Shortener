@@ -13,7 +13,7 @@
 
 
 ## About
-A Nodejs Microservice that shortens URL's. This project was proposed as a challenge in freecodecamp's "Back End Development and APIs" course.
+A Nodejs Microservice that shortens URL's. This project was proposed as a challenge in freecodecamp's "Back End Development and APIs" course. Link : https://shortenmylink.herokuapp.com
 
 ---
 
