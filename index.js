@@ -30,12 +30,7 @@ app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-// Your first API endpoint
-app.get('/api/hello', function(req, res) {
-  res.json({ greeting: 'hello API' });
-});
-
-app.post('/api/shorturl', (req,res) =>{
+app.post('/shorturl', (req,res) =>{
  var link = req.body.url;
  var linkCurto = 0;
  let inputShort = 1;
@@ -57,7 +52,7 @@ app.post('/api/shorturl', (req,res) =>{
                   (error, savedUrl) =>{
                       if(!error){
                         linkCurto = savedUrl.short;
-                        res.send ( { original_url : link, short_url : linkCurto}) 
+                        res.send ( { original_url : link, short_url : linkCurto, "Your New Link":`https://shorten.up.railway.app/${linkCurto}`}) 
                       }
                   }
                 )
@@ -69,7 +64,7 @@ app.post('/api/shorturl', (req,res) =>{
   }
 })
 
-app.get('/api/shorturl/:input', (req,res) =>{
+app.get('/:input', (req,res) =>{
   let input = req.params.input;
   Url.findOne({short:input}, (error, result) =>{
       if(!error && result != undefined) {
