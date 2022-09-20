@@ -52,7 +52,7 @@ app.post('/shorturl', (req,res) =>{
                   (error, savedUrl) =>{
                       if(!error){
                         linkCurto = savedUrl.short;
-                        res.send ( { original_url : link, short_url : linkCurto, "Your New Link":`https://shorten.up.railway.app/${linkCurto}`}) 
+                        res.sendFile(process.cwd() + '/views/result.html');
                       }
                   }
                 )
@@ -73,6 +73,11 @@ app.get('/:input', (req,res) =>{
         res.json('URL not found!')
       }
   })
+})
+
+app.get('/url/all', async (req,res)=>{
+  let result = await Url.findOne({}).sort({short:'desc'});
+  res.json(result)
 })
 
 app.listen(port, function() {

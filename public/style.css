@@ -68,5 +68,21 @@ body {
 	background-color: #f7daa4;
 	color: #7b5023;
   }
-  
 
+  /* Result Page */
+  .copyBtn{
+	width: 400px;
+	height: 50px;
+	border-radius: 1rem;
+	margin-top: 20px;
+	background-color: #333;
+	color: lightgoldenrodyellow;
+	font-size: 30px;
+	font-weight: bold;
+  }:focus{
+	outline: 2px solid wheat;
+  }
+  .copyBtn:hover{
+	background-color: #f7daa4;
+	color: #7b5023;
+  }
