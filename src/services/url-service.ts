@@ -1,8 +1,6 @@
-// src/services/urlService.ts
-import { isUri } from "valid-url"; // Use the correct import for valid-url
+import { isUri } from "valid-url";
 import Url from "../model/url";
 
-// Define the return type for createShortUrl
 interface IUrlResponse {
   original: string;
   short: string;
@@ -20,14 +18,13 @@ const generateRandomString = (length: number = 5): string => {
   return result;
 };
 
-// Create a short URL
 const createShortUrl = async (originalUrl: string): Promise<IUrlResponse> => {
   if (!isUri(originalUrl)) {
     throw new Error("Invalid URL");
   }
 
   // Check if the URL already exists
-  const existingUrl = await Url.findOne({ original: originalUrl });
+  const existingUrl = await Url.findOne({ original: originalUrl.toLowerCase() });
   if (existingUrl) {
     return {
       original: existingUrl.original,
@@ -48,7 +45,7 @@ const createShortUrl = async (originalUrl: string): Promise<IUrlResponse> => {
 
 // Get the original URL by short ID
 const getOriginalUrl = async (shortId: string): Promise<string> => {
-  const url = await Url.findOne({ short: shortId });
+  const url = await Url.findOne({ short: shortId.toLowerCase() });
   if (!url) {
     throw new Error("URL not found");
   }
