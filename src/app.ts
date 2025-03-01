@@ -19,7 +19,7 @@ app.use("/public", express.static("public"));
 app.use("/", require("./routes/routes"));
 
 // Serve index.html
-app.get("/", (req: Request, res:Response) => {
+app.get("/", (req: Request, res: Response) => {
   res.sendFile(process.cwd() + "/views/index.html");
 });
 

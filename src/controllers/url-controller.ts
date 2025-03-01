@@ -1,7 +1,6 @@
 // src/controllers/urlController.ts
-import { Request, Response } from 'express';
-import * as UrlService from '../services/url-service';
-
+import { Request, Response } from "express";
+import * as UrlService from "../services/url-service";
 
 // Define the structure of the request body for createShortUrl
 interface CreateShortUrlRequest {
@@ -53,6 +52,6 @@ export const getAllUrls = async (req: Request, res: Response) => {
     res.json(urls);
   } catch (error) {
     // Handle errors
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: "Server error" });
   }
 };
