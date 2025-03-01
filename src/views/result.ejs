@@ -40,15 +40,16 @@
 </html>
 
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-      const shortUrl = urlParams.get("short");
+  const baseUrl = "<%= baseUrl %>";
+  const urlParams = new URLSearchParams(window.location.search);
+  const shortUrl = urlParams.get("short");
 
-      if (shortUrl) {
-        document.getElementById("short-url").innerHTML = `<a href="http://localhost:3000/${shortUrl}">http://localhost:3000/${shortUrl}</a>`;
-      } else {
-        document.getElementById("short-url").textContent = "Not found";
-      }
-
+  if (shortUrl) {
+    document.getElementById("short-url").innerHTML =
+      `<a href="${baseUrl}/${shortUrl}">${baseUrl}/${shortUrl}</a>`;
+  } else {
+    document.getElementById("short-url").textContent = "Not found";
+  }
   function copyText() {
     var text = document.getElementById("short-url").textContent;
     navigator.clipboard.writeText(text);

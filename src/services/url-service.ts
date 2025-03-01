@@ -6,8 +6,7 @@ interface IUrlResponse {
   short: string;
 }
 const generateRandomString = (length: number = 5): string => {
-  const characters =
-    "abcdefghijklmnopqrstuvwxyz0123456789";
+  const characters = "abcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
 
   for (let i = 0; i < length; i++) {
@@ -24,7 +23,9 @@ const createShortUrl = async (originalUrl: string): Promise<IUrlResponse> => {
   }
 
   // Check if the URL already exists
-  const existingUrl = await Url.findOne({ original: originalUrl.toLowerCase() });
+  const existingUrl = await Url.findOne({
+    original: originalUrl.toLowerCase(),
+  });
   if (existingUrl) {
     return {
       original: existingUrl.original,

@@ -10,7 +10,8 @@ router.get("/", (req: Request, res: Response) => {
 
 // Serve result.html
 router.get("/shorturl/result", (req: Request, res: Response) => {
-  res.sendFile(process.cwd() + "/src/views/result.html");
+  const baseUrl = process.env.BASE_URL ?? "http://localhost:3002";
+  res.render("result", { baseUrl });
 });
 
 export default router;

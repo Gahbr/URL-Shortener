@@ -7,7 +7,7 @@ interface IUrl extends Document {
 
 const urlSchema: Schema<IUrl> = new mongoose.Schema({
   original: { type: String, required: true },
-  short: { type: String},
+  short: { type: String },
 });
 
 const Url = mongoose.model<IUrl>("Url", urlSchema);

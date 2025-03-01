@@ -17,6 +17,8 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/public", express.static("public"));
+app.set("view engine", "ejs");
+app.set("views", "./src/views")
 
 // Routes
 app.use("/", routes);
