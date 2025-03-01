@@ -1,5 +1,13 @@
-const mongoose = require("mongoose");
-const mongoUrl = process.env.MONGO_URI;
+import mongoose from "mongoose";
+import dotenv from 'dotenv';
+
+dotenv.config();
+const mongoUrl = process.env.MONGO_URI as string;
+
+export const urlSchema = new mongoose.Schema({
+  original: { type: String, required: true },
+  short: Number,
+});
 
 const connectDB = async () => {
   console.log("db.connectDB() - connecting to the Database...")
@@ -12,4 +20,4 @@ const connectDB = async () => {
   }
 };
 
-module.exports = connectDB;
+export default connectDB;

@@ -1,7 +1,9 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const connectDB = require("./config/db");
+import { NextFunction, Request, Response } from "express";
+
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import connectDB from "./config/db";
 const app = express();
 
 // Connect to database
@@ -17,14 +19,14 @@ app.use("/public", express.static("public"));
 app.use("/", require("./routes/routes"));
 
 // Serve index.html
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res:Response) => {
   res.sendFile(process.cwd() + "/views/index.html");
 });
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong!" });
 });
 
-module.exports = app;
+export default app;
