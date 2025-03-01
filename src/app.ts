@@ -4,6 +4,9 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import connectDB from "./config/db";
+import viewsRoutes from "./routes/views-routes";
+import routes from "./routes/routes";
+
 const app = express();
 
 // Connect to database
@@ -16,12 +19,8 @@ app.use(bodyParser.json());
 app.use("/public", express.static("public"));
 
 // Routes
-app.use("/", require("./routes/routes"));
-
-// Serve index.html
-app.get("/", (req: Request, res: Response) => {
-  res.sendFile(process.cwd() + "/src/views/index.html");
-});
+app.use("/", routes);
+app.use("/", viewsRoutes);
 
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

@@ -15,11 +15,8 @@ export const createShortUrl = async (req: Request, res: Response) => {
     // Call the service to create a short URL
     const newUrl = await UrlService.createShortUrl(url);
 
-    // Send the response
-    res.json({
-      original_url: newUrl.original,
-      short_url: newUrl.short,
-    });
+    // Redirect to the result page with the short URL as a query parameter
+    res.redirect(`/shorturl/result?short=${newUrl.short}`);
   } catch (error) {
     // Handle errors
     res.status(400).json({ error: (error as Error).message });

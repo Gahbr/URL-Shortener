@@ -8,4 +8,4 @@ router.post("/shorturl", createShortUrl);
 router.get("/:input", redirectUrl);
 router.get("/url/all", getAllUrls);
 
-module.exports = router;
+export default router;
