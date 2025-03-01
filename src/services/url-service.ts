@@ -5,8 +5,20 @@ import Url from "../model/url";
 // Define the return type for createShortUrl
 interface IUrlResponse {
   original: string;
-  short: number;
+  short: string;
 }
+const generateRandomString = (length: number = 5): string => {
+  const characters =
+    "abcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+
+  return result;
+};
 
 // Create a short URL
 const createShortUrl = async (originalUrl: string): Promise<IUrlResponse> => {
@@ -23,12 +35,11 @@ const createShortUrl = async (originalUrl: string): Promise<IUrlResponse> => {
     };
   }
 
-  // Get the last URL to determine the next short ID
-  const lastUrl = await Url.findOne().sort({ short: "desc" });
-  const short = lastUrl ? lastUrl.short + 1 : 1;
-
   // Create and save the new URL
-  const newUrl = await Url.create({ original: originalUrl, short });
+  const newUrl = await Url.create({
+    original: originalUrl,
+    short: generateRandomString(),
+  });
   return {
     original: newUrl.original,
     short: newUrl.short,
@@ -36,7 +47,7 @@ const createShortUrl = async (originalUrl: string): Promise<IUrlResponse> => {
 };
 
 // Get the original URL by short ID
-const getOriginalUrl = async (shortId: number): Promise<string> => {
+const getOriginalUrl = async (shortId: string): Promise<string> => {
   const url = await Url.findOne({ short: shortId });
   if (!url) {
     throw new Error("URL not found");
@@ -46,7 +57,7 @@ const getOriginalUrl = async (shortId: number): Promise<string> => {
 
 // Get all URLs
 const getAllUrls = async (): Promise<IUrlResponse[]> => {
-  const urls = await Url.find().sort({ short: "desc" });
+  const urls = await Url.find();
   return urls.map((url) => ({
     original: url.original,
     short: url.short,

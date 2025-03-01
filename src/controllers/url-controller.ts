@@ -29,7 +29,7 @@ export const createShortUrl = async (req: Request, res: Response) => {
 // Redirect to the original URL
 export const redirectUrl = async (req: Request, res: Response) => {
   try {
-    const shortId = Number(req.params.input);
+    const shortId = req.params.input;
 
     // Call the service to get the original URL
     const originalUrl = await UrlService.getOriginalUrl(shortId);

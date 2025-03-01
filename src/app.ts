@@ -20,7 +20,7 @@ app.use("/", require("./routes/routes"));
 
 // Serve index.html
 app.get("/", (req: Request, res: Response) => {
-  res.sendFile(process.cwd() + "/views/index.html");
+  res.sendFile(process.cwd() + "/src/views/index.html");
 });
 
 // Error handling middleware

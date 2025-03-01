@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "build": "tsc",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "lint": "prettier --write ."
   },
   "dependencies": {
     "cors": "^2.8.5",

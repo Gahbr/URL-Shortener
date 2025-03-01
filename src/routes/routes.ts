@@ -7,7 +7,7 @@ import { NextFunction, Request, Response } from "express";
 router.post("/shorturl", createShortUrl);
 router.get("/:input", redirectUrl);
 router.get("/url/all", async (req: Request, res: Response) => {
-  const result = await Url.find({}).sort({ short: "desc" });
+  const result = await Url.find({});
   res.json(result);
 });
 
