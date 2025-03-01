@@ -1,26 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html>
   <head>
     <title>URL Shortener Microservice | Node.js</title>
-    <link rel="icon" type="image/png" sizes="16x16"  href="/public/favicons/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/public/favicons/favicon-16x16.png"
+    />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
     <link href="/public/style.css" rel="stylesheet" type="text/css" />
-    
   </head>
 
   <body>
     <h1>URL Shortener Microservice</h1>
     <main>
       <section>
-        <form action="javascript:void(0);" >
+        <form action="javascript:void(0);">
           <fieldset>
             <legend>YOUR SHORTENED URL:</legend>
             <label for="url_input"></label>
             <p id="newUrl"></p>
-           <!--  <input type="submit" value="Copy to clipboard!" id="newUrlBtn" /> -->
-            <button class="copyBtn" onclick="copyText()">Copy to clipboard!</button>
+            <!--  <input type="submit" value="Copy to clipboard!" id="newUrlBtn" /> -->
+            <button class="copyBtn" onclick="copyText()">
+              Copy to clipboard!
+            </button>
           </fieldset>
         </form>
       </section>
@@ -32,24 +38,17 @@
 </html>
 
 <script>
-  (async ()=>{
-    const response = await fetch(
-		'https://shorten.up.railway.app/url/all',
-		{
-			method: 'GET',
-		}
-	);
-	const data = await response.json(); 
-  var newLink =`https://shorten.up.railway.app/${data.short}`
-    document.getElementById('newUrl').innerText= newLink;
-
-    
-    
-    
+  (async () => {
+    const response = await fetch("https://shorten.up.railway.app/url/all", {
+      method: "GET",
+    });
+    const data = await response.json();
+    var newLink = `https://shorten.up.railway.app/${data.short}`;
+    document.getElementById("newUrl").innerText = newLink;
   })();
 
-  function copyText(){
-    var text =  document.getElementById('newUrl').textContent
+  function copyText() {
+    var text = document.getElementById("newUrl").textContent;
     navigator.clipboard.writeText(text);
     text.select();
     text.setSelectionRange(0, 99999); // For mobile devices
@@ -59,6 +58,5 @@
 
     // Alert the copied text
     alert("Copied the text: " + text.value);
-   }
-
+  }
 </script>
