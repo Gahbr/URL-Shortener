@@ -11,6 +11,7 @@ rm -f $ZIP_FILE
 # Step 2: Install production dependencies
 echo "Installing production dependencies..."
 npm install
+npm run build
 
 # Step 3: Create a deployment package
 echo "Creating deployment package..."

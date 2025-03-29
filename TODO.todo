@@ -3,6 +3,7 @@
 ## Features
 - [X] Implement random URL shortening instead of incremental url
 - [X] Install typescript
+- [X] Divide the project in backend-frontend
 
 ## Testing
 - [ ] Write unit tests for URL shortening logic
@@ -15,9 +16,9 @@
 - [ ] Create a developer guide for contributing to the project
 
 ## Deployment
-- [ ] Deploy on AWS LAMBDA
+- [X] Deploy on AWS LAMBDA
 - [ ] Set up AWS Gateway
-- [ ] Monitor application performance and errors
+- [ ] Automate deploy to S3
 
 ## Miscellaneous
 - [ ] Code refactoring and optimization
