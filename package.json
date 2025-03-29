@@ -6,27 +6,27 @@
   "scripts": {
     "start": "node index.js",
     "build": "tsc",
-    "dev": "nodemon",
-    "lint": "prettier --write ."
+    "dev": "ts-node src/index.ts",
+    "lint": "prettier --write .",
+    "package": "./src/config/package.sh",
+    "offline": "serverless offline start --httpPort 4000"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "ejs": "^3.1.10",
     "express": "^4.21.1",
     "mongoose": "^8.5.4",
+    "serverless-http": "^3.2.0",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.17",
-    "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.0",
     "@types/mongoose": "^5.11.97",
     "@types/valid-url": "^1.0.7",
-    "nodemon": "^3.0.4",
     "prettier": "3.5.2",
-    "ts-node": "^10.9.2",
+    "serverless-offline": "^14.4.0",
     "typescript": "^5.8.2"
   },
   "license": "MIT",

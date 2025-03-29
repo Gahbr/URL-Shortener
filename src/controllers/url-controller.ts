@@ -2,7 +2,6 @@
 import { Request, Response } from "express";
 import * as UrlService from "../services/url-service";
 
-// Define the structure of the request body for createShortUrl
 interface CreateShortUrlRequest {
   url: string;
 }
@@ -15,8 +14,7 @@ export const createShortUrl = async (req: Request, res: Response) => {
     // Call the service to create a short URL
     const newUrl = await UrlService.createShortUrl(url);
 
-    // Redirect to the result page with the short URL as a query parameter
-    res.redirect(`/shorturl/result?short=${newUrl.short}`);
+    res.json(newUrl);
   } catch (error) {
     // Handle errors
     res.status(400).json({ error: (error as Error).message });
@@ -24,7 +22,7 @@ export const createShortUrl = async (req: Request, res: Response) => {
 };
 
 // Redirect to the original URL
-export const redirectUrl = async (req: Request, res: Response) => {
+export const getOriginalUrl = async (req: Request, res: Response) => {
   try {
     const shortId = req.params.input;
 
@@ -32,7 +30,7 @@ export const redirectUrl = async (req: Request, res: Response) => {
     const originalUrl = await UrlService.getOriginalUrl(shortId);
 
     // Redirect to the original URL
-    res.redirect(originalUrl);
+    res.json({ originalUrl: originalUrl });
   } catch (error) {
     // Handle errors
     res.status(404).json({ error: (error as Error).message });

@@ -1,7 +1,7 @@
 # TODO List for URL Shortener Project
 
 ## Features
-- [ ] Implement random URL shortening instead of incremental url
+- [X] Implement random URL shortening instead of incremental url
 - [X] Install typescript
 
 ## Testing

@@ -1,9 +1,8 @@
-import app from "./app";
+import serverless from "serverless-http";
+import app from "./app"; // Your Express app
 import dotenv from "dotenv";
 
-const port = process.env.PORT || 3000;
-dotenv.config();
+dotenv.config(); // Load environment variables
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Wrap your Express app with serverless-http
+export const handler = serverless(app);

@@ -22,27 +22,33 @@ const createShortUrl = async (originalUrl: string): Promise<IUrlResponse> => {
     throw new Error("Invalid URL");
   }
 
+  // Normalize the original URL to lowercase for consistency (case-insensitive check)
+  const normalizedUrl = originalUrl.toLowerCase();
+
   // Check if the URL already exists
   const existingUrl = await Url.findOne({
-    original: originalUrl.toLowerCase(),
+    original: normalizedUrl,
   });
   if (existingUrl) {
+    // If the URL already exists, return the existing shortened URL
     return {
       original: existingUrl.original,
       short: existingUrl.short,
     };
   }
 
-  // Create and save the new URL
+  // If the URL doesn't exist, create a new short URL
   const newUrl = await Url.create({
-    original: originalUrl,
+    original: normalizedUrl,  
     short: generateRandomString(),
   });
+
   return {
     original: newUrl.original,
     short: newUrl.short,
   };
 };
+
 
 // Get the original URL by short ID
 const getOriginalUrl = async (shortId: string): Promise<string> => {
