@@ -1,3 +1,5 @@
 .vscode/*
 .env
 node_modules/
+dist/
+lambda-deployment-package.zip

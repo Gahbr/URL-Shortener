@@ -1,0 +1,17 @@
+service: express-lambda-local-test
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+
+functions:
+  api:
+    handler: src/index.handler  # Points to your Lambda wrapper
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
+
+plugins:
+  - serverless-offline  # Enables local testing

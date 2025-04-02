@@ -1,0 +1,26 @@
+# TODO List for URL Shortener Project
+
+## Features
+- [X] Implement random URL shortening instead of incremental url
+- [X] Install typescript
+- [X] Divide the project in backend-frontend
+
+## Testing
+- [ ] Write unit tests for URL shortening logic
+- [ ] Perform integration testing with the database
+- [ ] Conduct end-to-end testing for the user interface
+
+## Documentation
+- [ ] Document API endpoints
+- [ ] Write a user guide for the application
+- [ ] Create a developer guide for contributing to the project
+
+## Deployment
+- [X] Deploy on AWS LAMBDA
+- [ ] Set up AWS Gateway
+- [ ] Automate deploy to S3
+
+## Miscellaneous
+- [ ] Code refactoring and optimization
+- [ ] Regular code reviews
+- [ ] Update dependencies and libraries

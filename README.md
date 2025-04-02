@@ -1,83 +1,225 @@
+# URL Shortener API Documentation
 
-<h4 align="center"> 
-	 Status: Finished
-</h4>
+## Overview
+The URL Shortener API provides a simple and efficient way to shorten long URLs and retrieve their original versions using shortened links. This project is designed to run on AWS Lambda, ensuring scalability and cost-effectiveness. Additionally, it includes GitHub workflows for CI/CD automation.  
 
-<p align="center">
- <a href="#about">About</a> •
- <a href="#layout">Layout</a> • 
- <a href="#user-stories">User Stories</a> • 
- <a href="#pre-requisites">Pre-requisites</a> • 
- <a href="#tech-stack">Tech Stack</a> 
-</p>
+For the front-end implementation, visit the [URL Shortener Frontend Repository](https://github.com/Gahbr/URL-Shortener-Frontend).
 
+- **Version**: 1.0.3  
+- **Author**: Gabriel Ribeiro  
+- **License**: MIT  
 
-## About
-A Nodejs Microservice that shortens URL's. This project was proposed as a challenge in freecodecamp's "Back End Development and APIs" course. Link : https://shortenmylink.herokuapp.com
+## Base URL
 
----
+The base URL for this API is:  
+`http://localhost:4000`
 
+## Endpoints
 
-## Layout
-![Screenshot 2022-08-31 at 21-31-36 URL Shortener Microservice Node js](https://user-images.githubusercontent.com/80289718/187807825-ea0ed20a-244e-4abe-8e8b-05284a749bdc.png)
+### 1. POST `/shorturl`
 
+**Description**: Creates a shortened URL.  
 
+**Request Body**:
+```json
+{
+  "url": "string"
+}
+```
+- `url`: The original URL you want to shorten.
 
----
+**Response**:  
+- **200 OK**: Returns the shortened URL.
+    ```json
+    {
+      "shortId": "short123",
+      "originalUrl": "https://www.example.com"
+    }
+    ```
+- **400 Bad Request**: If the provided URL is invalid.
+    ```json
+    {
+      "error": "Invalid URL"
+    }
+    ```
 
-## User Stories
-
-* The API endpoint is GET [project_url]/api/shorturl/<shortenedUrl>
-
-* You can POST a URL to /api/shorturl and get a JSON response with original_url and short_url properties.
-Here's an example: {original_url:'https://freeCodeCamp.org', short_url : 1}
-
-* When you visit /api/shorturl/<short_url>, you will be redirected to the original URL.
-
-* If you pass an invalid URL that doesn't follow the valid http://www.example.com format,
-the JSON response will contain{ error: 'invalid url' }
-
-    
-
----
-### Pre-requisites
-
-Before you begin, you will need to have the following tools installed on your machine:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
-In addition, it is good to have an editor to work with the code like [VSCode] (https://code.visualstudio.com/)
-
-#### Running the application (server)
-
+**Example Request**:
 ```bash
-# Clone this repository
-$ git clone https://github.com/Gahbr/URL-Shortener
-# Access the project folder cmd/terminal
-$ cd URL-Shortener
-# install the dependencies
-$ npm install
-# Run the application in development mode
-$ npm run dev
-# The server will start at port: 3000 - go to http://localhost:3000
+curl -X POST http://localhost:4000/shorturl -H "Content-Type: application/json" -d '{"url": "https://www.example.com"}'
+```
+
+**Example Response**:
+```json
+{
+  "shortId": "abc123",
+  "originalUrl": "https://www.example.com"
+}
 ```
 
 ---
 
-## Tech Stack
+### 2. GET `/:input`
 
-The following tools were used in the construction of the project:
+**Description**: Redirects to the original URL for the given shortened ID.  
 
+**Parameters**:  
+- `input`: The shortened URL ID.
 
-> See the file  [package.json](https://github.com/Gahbr/URL-Shortener/blob/main/package.json)
-#### [](https://github.com/Gahbr/URL-Shortener)**Server**  
-    
--   **[Nodejs](https://nodejs.org/)**
--   **[Express](https://expressjs.com/)**
--   **[MongoDB](https://mongodb.com)**
--   **[CORS](https://expressjs.com/en/resources/middleware/cors.html)**
--   **[dotENV](https://github.com/motdotla/dotenv)**
--   **[Mongoose](https://mongodb.com/)**
--   **[Valid URL](https://www.npmjs.com/package/valid-url)**
--   **[BodyParser](https://www.npmjs.com/package/body-parser)**
+**Response**:  
+- **200 OK**: Returns the original URL.
+    ```json
+    {
+      "originalUrl": "https://www.example.com"
+    }
+    ```
+- **404 Not Found**: If the shortened URL ID does not exist.
+    ```json
+    {
+      "error": "URL not found"
+    }
+    ```
 
+**Example Request**:
+```bash
+curl http://localhost:4000/abc123
+```
+
+**Example Response**:
+```json
+{
+  "originalUrl": "https://www.example.com"
+}
+```
 
 ---
+
+### 3. GET `/url/all`
+
+**Description**: Retrieves a list of all stored URLs.  
+
+**Response**:  
+- **200 OK**: Returns a list of all stored URLs.
+    ```json
+    [
+      {
+        "shortId": "abc123",
+        "originalUrl": "https://www.example.com"
+      },
+      {
+        "shortId": "xyz456",
+        "originalUrl": "https://www.another-example.com"
+      }
+    ]
+    ```
+
+**Example Request**:
+```bash
+curl http://localhost:4000/url/all
+```
+
+**Example Response**:
+```json
+[
+  {
+    "shortId": "abc123",
+    "originalUrl": "https://www.example.com"
+  },
+  {
+    "shortId": "xyz456",
+    "originalUrl": "https://www.another-example.com"
+  }
+]
+```
+
+---
+
+## Middleware
+
+- **CORS**: Cross-Origin Resource Sharing is enabled.  
+- **Body Parser**: Parses incoming request bodies in JSON format.
+
+---
+
+## Error Handling
+
+The API includes error handling for various scenarios. If an error occurs during a request, a standard error message is returned:
+
+- **500 Internal Server Error**: General server errors.
+    ```json
+    {
+      "error": "Something went wrong!"
+    }
+    ```
+- **400 Bad Request**: In case of a bad request or invalid URL.
+    ```json
+    {
+      "error": "Invalid URL"
+    }
+    ```
+- **404 Not Found**: If a requested URL ID cannot be found.
+    ```json
+    {
+      "error": "URL not found"
+    }
+    ```
+
+---
+
+## Development Setup
+
+To start the application locally, follow these steps:
+
+1. Clone the repository.  
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Start the application:
+    ```bash
+    npm start
+    ```
+4. To run in development mode (with TypeScript):
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## Available Scripts
+
+- `start`: Starts the server using Node.js.  
+- `build`: Compiles the TypeScript files.  
+- `dev`: Runs the server in development mode using ts-node.  
+- `lint`: Lints the project files with Prettier.  
+- `package`: Packages the source files using a custom shell script.  
+- `offline`: Starts the serverless offline environment on port 4000.  
+
+---
+
+## Dependencies
+
+- `express`: Web framework for building the API.  
+- `mongoose`: MongoDB ODM for interacting with the database.  
+- `cors`: Middleware to enable CORS.  
+- `dotenv`: Loads environment variables.  
+- `serverless-http`: Helps integrate with the Serverless framework.  
+- `valid-url`: Validates the URL format.  
+
+### Development Dependencies
+
+- `typescript`: TypeScript compiler.  
+- `prettier`: Code formatting tool.  
+- `serverless-offline`: Simulates AWS Lambda and API Gateway locally.  
+- `@types/`: Type definitions for TypeScript compatibility.  
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Author
+
+Gabriel Ribeiro
